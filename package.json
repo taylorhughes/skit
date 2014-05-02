@@ -1,8 +1,7 @@
 {
   "name": "skit",
-  "description": "Skit JavaScript framework for curmudgeons.",
+  "description": "Skit JavaScript framework for building thick clients based on public web APIs.",
   "version": "0.0.1",
-  "private": true,
   "dependencies": {
     "handlebars": "1.3.x",
     "async": "0.7.0",
