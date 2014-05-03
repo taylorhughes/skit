@@ -5,7 +5,8 @@
   "dependencies": {
     "handlebars": "1.3.x",
     "async": "0.7.0",
-    "reflect": "0.1.3"
+    "reflect": "0.1.3",
+    "request": "2.33.0"
   },
   "main": "lib/skit",
   "repository": {
