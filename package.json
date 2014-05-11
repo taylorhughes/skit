@@ -6,7 +6,13 @@
     "async": "0.7.0",
     "handlebars": "1.3.x",
     "reflect": "0.1.3",
-    "request": "2.33.0"
+    "request": "2.33.0",
+
+    "connect": "https://github.com/senchalabs/connect/tarball/master",
+    "body-parser": "1.0.2",
+    "serve-static": "1.1.0",
+    "cookies": "0.4.1",
+    "compression": "1.0.2"
   },
   "main": "lib/skit",
   "repository": {

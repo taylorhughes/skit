@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>{{ title }}</title>
+  {{#each cssUrls}}
+    <link rel="stylesheet" href="{{ this }}">
+  {{/each}}
+</head>
+<body>{{{ html }}}
+  <script>
+    window.skit = {
+      objects: {}
+    };
+  </script>
+  {{#each scriptUrls}}
+    <script src="{{ this }}"></script>
+  {{/each}}
+  <script>
+    (function() {
+      {{#if clientProxyObjects}}
+        var netproxy = window.skit.objects[{{json netproxyModulePath}}];
+        {{#each clientProxyObjects}}
+          netproxy.__register__({{json name}}, {{json this}});
+        {{/each}}
+      {{/if}}
+
+      var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
+      var controller = new ControllerKlass();
+      controller.__load__.apply(controller, {{json controllerArgs }});
+      controller.__ready__();
+    })()
+  </script>
+</body>
