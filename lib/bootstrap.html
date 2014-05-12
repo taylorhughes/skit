@@ -19,9 +19,11 @@
     (function() {
       {{#if clientProxyObjects}}
         var netproxy = window.skit.objects[{{json netproxyModulePath}}];
-        {{#each clientProxyObjects}}
-          netproxy.__register__({{json name}}, {{json this}});
-        {{/each}}
+        if (netproxy) {
+          {{#each clientProxyObjects}}
+            netproxy.__register__({{json name}}, {{json this}});
+          {{/each}}
+        }
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
