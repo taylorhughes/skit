@@ -5,8 +5,9 @@
   {{#each cssUrls}}
     <link rel="stylesheet" href="{{ this }}">
   {{/each}}
+  {{{ meta }}}
 </head>
-<body>{{{ html }}}
+<body>{{{ body }}}
   <script>
     window.skit = {
       objects: {}
