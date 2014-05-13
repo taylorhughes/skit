@@ -27,7 +27,7 @@
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
-      var controller = new ControllerKlass();
+      var controller = new ControllerKlass({{json requestWrap }});
       controller.__load__.apply(controller, {{json controllerArgs }});
       controller.__ready__();
     })()
