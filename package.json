@@ -10,7 +10,7 @@
 
     "connect": "https://github.com/senchalabs/connect/tarball/master",
     "body-parser": "1.0.2",
-    "serve-static": "1.1.0",
+    "send": "0.3.0",
     "cookies": "0.4.1",
     "compression": "1.0.2"
   },
