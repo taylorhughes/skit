@@ -6,6 +6,13 @@
     <link rel="stylesheet" href="{{ this }}">
   {{/each}}
   {{{ meta }}}
+  {{#if currentUrlAfterRedirect }}
+    <script>
+      try {
+        history.replaceState({}, {{json title}}, {{json currentUrlAfterRedirect}});
+      } catch (e) {}
+    </script>
+  {{/if}}
 </head>
 <body>{{{ body }}}
   <script>
