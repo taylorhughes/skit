@@ -35,8 +35,21 @@
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
+
+      var controllersToLoadInOrder = [];
+      var CurrentControllerKlass = ControllerKlass;
+      while (CurrentControllerKlass) {
+        controllersToLoadInOrder.unshift(CurrentControllerKlass);
+        CurrentControllerKlass = CurrentControllerKlass.__parent__;
+      }
+
       var controller = new ControllerKlass({{json requestWrap }});
-      controller.__load__.apply(controller, {{json controllerArgs }});
+      var allControllerArgs = {{json allControllerArgs }};
+      for (var i = 0; i < controllersToLoadInOrder.length; i++) {
+        if (controllersToLoadInOrder[i].prototype.__load__) {
+          controllersToLoadInOrder[i].prototype.__load__.apply(controller, allControllerArgs[i]);
+        }
+      }
       controller.__ready__();
     })()
   </script>
