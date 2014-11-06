@@ -3,13 +3,14 @@
 <head>
   <title>{{ title }}</title>
   {{#each cssUrls}}
-    <link rel="stylesheet" href="{{ this }}">
-  {{/each}}
+    <link rel="stylesheet" href="{{ this }}">{{/each}}
   {{{ meta }}}
   {{#if currentUrlAfterRedirect }}
     <script>
       try {
-        history.replaceState({}, {{json title}}, {{json currentUrlAfterRedirect}});
+        if (window.history) {
+          history.replaceState({}, {{json title}}, {{json currentUrlAfterRedirect}});
+        }
       } catch (e) {}
     </script>
   {{/if}}
@@ -19,10 +20,8 @@
     window.skit = {
       objects: {}
     };
-  </script>
-  {{#each scriptUrls}}
-    <script src="{{ this }}"></script>
-  {{/each}}
+  </script>{{#each scriptUrls}}
+  <script src="{{ this }}"></script>{{/each}}
   <script>
     (function() {
       {{#if clientProxyObjects}}
