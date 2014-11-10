@@ -44,12 +44,15 @@
 
       var controller = new ControllerKlass({{json requestWrap }});
       var allControllerArgs = {{json allControllerArgs }};
-      for (var i = 0; i < controllersToLoadInOrder.length; i++) {
-        if (controllersToLoadInOrder[i].prototype.__load__) {
-          controllersToLoadInOrder[i].prototype.__load__.apply(controller, allControllerArgs[i]);
+      for (var i = 0, currentKlass = null; i < controllersToLoadInOrder.length; i++) {
+        currentKlass = controllersToLoadInOrder[i];
+        if (currentKlass.prototype.hasOwnProperty('__load__')) {
+          currentKlass.prototype.__load__.apply(controller, allControllerArgs[i]);
+        }
+        if (currentKlass.prototype.hasOwnProperty('__ready__')) {
+          currentKlass.prototype.__ready__.call(controller);
         }
       }
-      controller.__ready__();
-    })()
+    })();
   </script>
 </body>
