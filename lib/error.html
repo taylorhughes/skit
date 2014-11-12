@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<head>
+  <title>Error: {{ message }}</title>
+  <style>
+    h1, h2, h3, h4, p, body {
+      font-family: Helvetica, arial, sans-serif;
+    }
+    h1, h2, h3, h4, p, pre {
+      margin: 0;
+      padding: 0;
+      margin-bottom: 5px;
+    }
+    hr {
+      border: none;
+      border-bottom: 1px solid #ccc;
+      margin: 20px 33%;
+    }
+    body {
+      background: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    body, p {
+      font-size: 14px;
+      color: #333;
+    }
+    h1, h3 {
+      text-transform: uppercase;
+      color: #666;
+      font-size: 16px;
+    }
+    h2 {
+      font-size: 24px;
+    }
+    #content {
+      max-width: 80%;
+      margin: 40px auto;
+    }
+    pre, code {
+      font-family: Consolas, Courier, monospace;
+      font-size: 13px;
+    }
+    pre {
+      background: #eee;
+      border: 1px solid #aaa;
+      border-radius: 3px;
+      padding: 10px;
+      overflow-x: auto;
+    }
+
+    #excerpt {
+      color: #666;
+    }
+    #excerpt b {
+      margin-right: 10px;
+      padding-right: 5px;
+      border-right: 2px solid #ccc;
+    }
+    #excerpt .current {
+      font-weight: bold;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h1>
+      {{#if code }}
+        [{{code}}]
+      {{/if}}
+      Error processing request
+    </h1>
+    <h2>
+      {{error}}
+    </h2>
+
+    {{#if error.fileName }}
+      <hr>
+      <h3>Location</h3>
+      <p><code>{{ error.fileName }}:{{ error.lineNumber }}:{{ error.charNumber }}</code></p>
+      {{#if excerptHtml }}
+        <pre id="excerpt">{{{ excerptHtml }}}</pre>
+      {{/if}}
+    {{/if}}
+
+    <hr>
+    <h3>Original stack</h3>
+    <pre>{{error.stack}}</pre>
+  </div>
+</body>
