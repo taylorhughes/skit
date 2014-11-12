@@ -71,7 +71,11 @@
       Error processing request
     </h1>
     <h2>
-      {{error}}
+      {{#if error }}
+        {{error}}
+      {{else}}
+        {{message}}
+      {{/if}}
     </h2>
 
     {{#if error.fileName }}
@@ -83,8 +87,10 @@
       {{/if}}
     {{/if}}
 
-    <hr>
-    <h3>Original stack</h3>
-    <pre>{{error.stack}}</pre>
+    {{#if error.stack }}
+      <hr>
+      <h3>Original stack</h3>
+      <pre>{{error.stack}}</pre>
+    {{/if}}
   </div>
 </body>
