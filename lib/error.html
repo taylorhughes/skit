@@ -78,10 +78,10 @@
       {{/if}}
     </h2>
 
-    {{#if error.fileName }}
+    {{#if fileName }}
       <hr>
       <h3>Location</h3>
-      <p><code>{{ error.fileName }}:{{ error.lineNumber }}:{{ error.charNumber }}</code></p>
+      <p><code>{{ fileName }}:{{ lineNumber }}</code></p>
       {{#if excerptHtml }}
         <pre id="excerpt">{{{ excerptHtml }}}</pre>
       {{/if}}
