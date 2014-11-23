@@ -49,10 +49,8 @@
         if (currentKlass.prototype.hasOwnProperty('__load__')) {
           currentKlass.prototype.__load__.apply(controller, allControllerArgs[i]);
         }
-        if (currentKlass.prototype.hasOwnProperty('__ready__')) {
-          currentKlass.prototype.__ready__.call(controller);
-        }
       }
+      controller.recursiveReady();
     })();
   </script>
 </body>
