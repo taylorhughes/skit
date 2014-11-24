@@ -1,0 +1,10 @@
+<li class="movie-row">
+  <img class="poster" src="{{ posters.thumbnail }}">
+  <a href="/{{slugify title}}-{{id}}">{{title}}</a> ({{year}} &bull; {{ratings.critics_score}}%)
+  &mdash;
+  {{#each abridged_cast}}
+    {{name}}
+  {{else}}
+    (no cast)
+  {{/each}}
+</li>

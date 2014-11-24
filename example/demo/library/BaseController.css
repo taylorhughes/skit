@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", hevetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4em;
+
+  width: 640px;
+  margin: 20px auto;
+}
+
+h1, h2, p, hr, ul, ol {
+  margin-bottom: 20px;
+}
+
+li {
+  list-style-type: square;
+}
+
+a {
+  color: blue;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.poster {
+  float: left;
+  width: 80px;
+  margin: 10px;
+  margin-top: 0;
+  margin-left: 0;
+}

@@ -1,0 +1,31 @@
+<h1>Detail page</h1>
+
+<p>
+  Regex paths are supported by directories with special names.
+  In main.js we register regular expressions for these paths.
+</p>
+
+<hr>
+
+<h1>{{ title }} ({{ year }})</h1>
+
+<p>
+  <strong>Tomatometer</strong>: {{ ratings.critics_score }}% (critics); {{ ratings.audience_score }}% (audience)
+  &mdash;
+  <strong>Rating</strong>: {{ mpaa_rating }}
+</p>
+
+<h2>Synopsis</h2>
+<p>
+  <img class="poster" src="{{ posters.profile }}">
+  {{ synopsis }}
+</p>
+
+<h2>Cast</h2>
+<ul>
+{{#each abridged_cast }}
+  <li>{{ name }} {{#if characters}}&mdash; {{#each characters }}{{this}}{{/each}}{{/if}}</li>
+{{/each}}
+</ul>
+
+<p><a href="/">Back home</a></p>

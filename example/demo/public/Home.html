@@ -1,0 +1,44 @@
+<h1>Home</h1>
+<p>This is a template. It is rendered using Handlebars.</p>
+
+<p>
+  Navigation in skit (for now) is dictated by the
+  <strong>directory structure of the &ldquo;public&rdquo; package</strong>. WTF? I know, it&rsquo;s crazy.
+</p>
+
+<hr>
+
+<h2>Now the crazy part.</h2>
+
+<p>
+  We fetched and rendered the movies data (below) on the server side.
+  Clicking another list ("Change list") will make a client-side request
+  in the same re-instantiated class, and could re-render the list or something
+  with the same exact templates.
+</p>
+
+<p>
+  Change list:
+  <ul>
+  {{#each lists}}
+    <li><a data-list="{{key}}" class="list-item {{#if selected}} selected{{/if}}">{{name}}</a></li>
+  {{/each}}
+  </ul>
+</p>
+
+<h2>{{ listName }}</h2>
+<ol>
+{{#movies}}
+  <!-- this calls into a partial called Home_artist.html. -->
+  {{> __module__.movie.html }}
+{{else}}
+  <li>No results. Terrible demo! (<a href="/">Start over</a>)</li>
+{{/movies}}
+</ol>
+
+<hr>
+
+<p>
+  Once I write the code, it will be easy to bundle all the generated files
+  and serve them from another static location. Haven&rsquo;t gotten there yet.
+</p>

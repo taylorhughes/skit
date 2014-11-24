@@ -1,0 +1,7 @@
+
+.movie-row {
+  overflow: hidden;
+}
+.movie-row .poster {
+  width: 20px;
+}

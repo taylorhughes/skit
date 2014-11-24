@@ -1,0 +1,9 @@
+{
+  "name": "skit-demo",
+  "dependencies": {
+    "skit": "0.0.15"
+  },
+  "description": "...",
+  "readme": "...",
+  "repository": {}
+}
