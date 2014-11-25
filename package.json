@@ -12,6 +12,7 @@
     "connect": "https://github.com/senchalabs/connect/tarball/master",
     "body-parser": "1.0.2",
     "send": "0.3.0",
+    "http-proxy": "1.6.2",
     "cookies": "0.4.1",
     "compression": "1.0.2",
     "uglify-js": "2.4.15"
