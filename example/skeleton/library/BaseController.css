@@ -1,0 +1,46 @@
+
+/* This file is automatically included with any dependent modules. */
+
+body, p {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 200%;
+}
+h2 {
+  font-size: 150%;
+}
+
+a {
+  color: #069;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, p, li {
+  margin-bottom: 10px;
+}
+
+#base {
+  max-width: 640px;
+  margin: 100px auto;
+}
+
+.upsell {
+  border: 1px solid #ccc;
+  background: #efefef;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.upsell p {
+  margin: 0;
+}

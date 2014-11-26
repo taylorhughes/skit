@@ -1,0 +1,27 @@
+<h1>Home</h1>
+
+<div class="upsell">
+  <p>Visit a subpage: <a href="/about">About</a></p>
+</div>
+
+<h2>Dynamic preloaded content</h2>
+<div class="upsell">
+  <p>
+    <strong>This is dynamic content loaded from a remote location.</strong>
+    This is a trivial example because the remote location is a hosted JSON file,
+    but in a real application this would be data from an API of some kind.
+  </p>
+</div>
+<ul>
+  {{#each items }}
+    {{> __module__.item.html }}
+  {{/each}}
+</ul>
+
+<h2>See also</h2>
+<div class="upsell">
+  <p>
+    <a href="https://github.com/clusterinc/skit">Check out the skit project on Github</a>
+    to see the full documentation.
+  </p>
+</div>
