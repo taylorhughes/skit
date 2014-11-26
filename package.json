@@ -1,7 +1,9 @@
 {
   "name": "skit",
   "description": "Skit JavaScript framework for building thick clients based on public web APIs.",
-  "version": "0.0.17",
+  "version": "0.0.18",
+
+  "bin": "./bin/skit",
 
   "dependencies": {
     "acorn": "0.9.0",
