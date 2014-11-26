@@ -1,6 +1,5 @@
 'use strict';
 
-var events = skit.browser.events;
 var Controller = skit.platform.Controller;
 var net = skit.platform.net;
 
