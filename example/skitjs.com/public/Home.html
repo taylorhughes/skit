@@ -1,0 +1,272 @@
+
+<h1>Overview</h1>
+
+<div id="view-layer" class="section">
+  <div class="wide-image-container">
+    <img src="/__static__/viewlayer.png" alt="Skit lives in the view layer">
+  </div>
+
+  <h2>Build a web client that&rsquo;s just like a mobile client</h2>
+  <ul>
+    <li>
+      Skit generates HTML and serves static web resources by connecting
+      to existing backend HTTP APIs to fetch and store content.
+    </li>
+    <li>
+      Perfect for apps with existing mobile clients, where you can reuse
+      an existing HTTP API to build your web experience.
+    </li>
+    <li>
+      Proxy web client-side requests through the server in order to
+      keep authentication secrets secret if necessary.
+    </li>
+  </ul>
+</div>
+
+<div id="configuration" class="section">
+  <h2>Zero configuration</h2>
+  <ul>
+    <li>No configuration files.</li>
+    <li>Directory structure dictates URLs the skit HTTP server will handle.</li>
+    <li>Automatic resource grouping and minification in production mode.</li>
+    <li>Awesome, unobfuscated development mode for the best debugging.</li>
+  </ul>
+</div>
+
+<div id="seo" class="section">
+  <h2>SEO the Natural Way&trade;</h2>
+  <ul>
+    <li>
+      Quit returning empty responses and depending on client-side rendering.
+    </li>
+    <li>
+      Render content on the server side, then use the same templates to render
+      supplemental content on the client side as users interact with your app.
+    </li>
+    <li>
+      Robots should like you for <em>you</em>, don&rsquo;t you think?
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>The best modules ever</h2>
+  <ul>
+    <li>
+      Build complete JavaScript/CSS/HTML modules.
+      No need to configure the module loader, just start adding files.
+    </li>
+    <li>
+      Compartmentalize your code into targeted stylesheets and script
+      files, without any extra configuration.
+    </li>
+    <li>
+      Once your modules are defined, they are loaded on the server and
+      client automatically.
+    </li>
+  </ul>
+</div>
+
+<h1>How it works</h1>
+
+<div id="unified" class="section">
+  <div class="wide-image-container">
+    <img src="/__static__/skitrequest.png" alt="Skit initially renders a controller in the server, then reinstantiates the controller in the client.">
+  </div>
+
+  <h2>Share client- and server-side code without thinking</h2>
+  <ul>
+    <li>
+      Write a <strong>single JavaScript codebase</strong>
+      for your web app. No more client-side app bootstrapping,
+      or multiple ways to load templates, or multiple template languages.
+    </li>
+    <li>
+      Everything from URL routing to HTTP redirects to &ldquo;DOMReady&rdquo;
+      is handled by the same JavaScript controller classes.
+    </li>
+    <li>
+      Skit platform libraries are built to work on the client and server.
+    </li>
+    <li>
+      Build a single HTTP API client for your backend in JavaScript.
+    </li>
+  </ul>
+</div>
+
+<div class="section">
+  <h2>Example project structure</h2>
+  <p>
+    Here&rsquo;s an example project that would serve a single URL, located
+    at <code>/items</code>.
+  </p>
+  <ul>
+    <li>
+      <code>public/items/ItemsList.js</code> &mdash; The &ldquo;main&rdquo; file
+      in the <code>ItemsList</code> module, this file returns a Controller subclass
+      to handle loading this page.
+    </li>
+    <li>
+      <code>public/items/ItemsList.html</code> &mdash; This file is parsed by
+      Handlebars because it has an <code>.html</code> extension, and is
+      accessible to the other files in this module as <code>__module__.html</code>.
+      When parsing the file, we see it depends on <code>__module__.item.html</code>,
+      so that is also loaded.
+    </li>
+    <li>
+      <code>public/items/ItemsList_item.html</code> &mdash; This is a simple
+      template with no dependencies.
+    </li>
+    <li>
+      <code>library/APIClient.js</code> &mdash; This is a simple class that
+      utilizes the builtin <code>skit.platform.net</code> module to issue
+      an HTTP request. <code>net.send()</code> works on the client- and
+      server-side, so you can use the same code in both environments.
+    </li>
+  </ul>
+
+  <div class="wide-example-container">
+    <div class="half">
+      <h3><code>public/items/ItemsList.js</code></h3>
+      <pre>var Controller = <strong>skit.platform.Controller</strong>;
+var APIClient = library.APIClient;
+var html = __module__.html;
+
+return <strong>Controller</strong>.create(BaseController, {
+  <strong>__preload__</strong>: function(preloaded) {
+    APIClient.loadItems(function(items) {
+      preloaded(items);
+    });
+  },
+  <strong>__load__</strong>: function(items) {
+    this.items = items;
+  },
+  <strong>__body__</strong>: function() {
+    return html(this);
+  }
+});</pre>
+    </div>
+    <div class="half">
+      <h3><code>library/APIClient.js</code></h3>
+      <pre><strong>var net = skit.platform.net</strong>;
+var util = skit.platform.util;
+
+var ClusterAPIClient = util.createClass({
+  listItems: function(callbacks) {
+    <strong>net.send</strong>(LIST_ITEMS_URL, { ... });
+  },
+  ...
+});
+
+return new ClusterAPIClient();</pre>
+    </div>
+  </div>
+
+  <div class="wide-example-container">
+    <div class="half">
+      <h3><code>public/items/ItemsList.html</code></h3>
+      <pre>&lt;h2&gt;All Your Items&lt;/h2&gt;
+&lt;ul&gt;
+  &#123;&#123;#each items &#125;&#125;
+    &#123;&#123;&gt; <strong>__module__.item.html</strong> &#125;&#125;
+  &#123;&#123;/each&#125;&#125;
+&lt;/ul&gt;</pre>
+    </div>
+    <div class="half">
+      <h3><code>public/items/ItemsList_item.html</code></h3>
+      <pre>
+&lt;li&gt;
+  &lt;strong&gt;&#123;&#123; title &#125;&#125;&lt;/strong&gt;
+  &amp;mdash; &#123;&#123; description &#125;&#125;
+&lt;/li&gt;</pre>
+    </div>
+  </div>
+
+  <h3>Explanation</h3>
+
+  <p>
+    The Controller class, <code>ItemsList.js</code>, located in
+    <code>/public/items/</code>, handles requests to <code>/items</code>
+    as a byproduct of its location in the project.
+  </p>
+  <p>
+    This Controller subclass preloads some data using the
+    <code>library/APIClient.js</code> module, which is just a single class.
+    <code>APIClient</code> uses <strong>skit.platform.net</strong> to
+    make an HTTP request, which works on the server- and client- side
+    the same way.
+  </p>
+
+  <p>
+    In the <code>__body__</code> method of the Controller, we return
+    HTML rendered by the main template, <code>ItemsList.html</code>.
+    The <code>ItemsList_item.html</code> partial is automatically
+    loaded as a dependency of the main template calling into it.
+  </p>
+
+</div>
+
+<div class="section">
+  <h1>Try it</h1>
+  <p>Install skit and run an example project to get a feel for it:</p>
+  <pre> $ sudo npm install skit --global
+ $ skit skeleton skit-example
+ $ skit run skit-example --debug</pre>
+  <p>
+    Also be sure to
+    <a href="https://github.com/clusterinc/skit">visit the project on GitHub</a> to find
+    more documentation and examples.
+  </p>
+</div>
+
+<div class="section">
+  <h1>FAQ</h1>
+  <ul>
+    <li>
+      <h4>
+        Doesn&rsquo;t <a href="https://github.com/substack/node-browserify">browserify</a>
+        do the same thing?
+      </h4>
+      <p>
+        Not really. I mean, kind of, but you have to set it up, and it doesn&rsquo;t
+        handle CSS, and it doesn&rsquo;t do anything to make templates easier to include,
+        and you can&rsquo;t (AFAIK) load client-side files individually, and &hellip;
+        yeah, so, no, not really.
+      </p>
+    </li>
+    <li>
+      <h4>
+        You seriously made another module loader?
+      </h4>
+      <p>
+        Yeah. There are several reasons why:
+      </p>
+      <ol>
+        <li>
+          To create a new-feeling environment that is clearly <em>not node</em>, because
+          you&rsquo;re writing code that runs in node <em>and</em> IE9 <em>and</em>
+          Chrome etc. It shouldn&rsquo;t feel like any old node.js module.
+        </li>
+        <li>
+          In order to automatically include stylesheets and template partials
+          used by other templates.
+        </li>
+        <li>
+          To add a notion of internal-module-only includes. Internal includes, usually
+          partials and secondary stylesheets and sometimes internal classes, can&rsquo;t
+          be loaded by other modules.
+        </li>
+      </ol>
+    </li>
+    <li>
+      <h4>
+        Can I use this with <code>&lt;arbitrary client-side framework&gt;</code>?
+      </h4>
+      <p>
+        Maybe! It won&rsquo;t help too much if your existing client-side
+        framework of choice depends on DOM manipulation for rendering, however.
+      </p>
+    </li>
+  </ul>
+</div>
+

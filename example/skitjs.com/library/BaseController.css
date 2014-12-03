@@ -1,0 +1,160 @@
+
+/* This file is automatically included with any dependent modules. */
+
+body, p {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 300%;
+}
+h2 {
+  font-size: 150%;
+}
+
+a {
+  color: #069;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, p, li {
+  margin-bottom: 10px;
+}
+
+pre, code {
+  font-family: Consolas, Courier, monospace;
+  font-size: 14px;
+  background: #eee;
+}
+pre {
+  border: 1px solid #aaa;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 0;
+  margin-bottom: 10px;
+  overflow-x: auto;
+}
+
+li li {
+  margin-left: 25px;
+}
+li li li {
+  margin-left: 50px;
+}
+
+
+.content {
+  max-width: 640px;
+  padding: 0 25px;
+  margin: 100px auto;
+}
+.content .wide-image-container {
+  margin: 30px 0;
+  text-align: center;
+}
+.content .wide-image-container img {
+  max-width: 100%;
+}
+
+
+.content ul > li {
+  list-style-type: square;
+}
+.content ol > li {
+  list-style-type: decimal;
+}
+
+
+#header {
+  background: #222;
+  background: linear-gradient(#333, #111);
+  color: #fff;
+  overflow: hidden;
+}
+#header .content {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+@media screen and (max-width: 959px) {
+  #header .content {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+}
+
+#header p {
+  font-size: 150%;
+}
+
+#header a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+
+#body h1 {
+  font-size: 150%;
+  color: #666;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ccc;
+  margin: 80px 0 40px 0;
+}
+
+#body .section {
+  margin-bottom: 30px;
+}
+
+
+#body h3 {
+  text-transform: uppercase;
+  color: #666;
+  margin-top: 20px;
+}
+
+
+
+#github-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+@media screen and (max-width: 480px) {
+  #github-banner {
+    position: absolute;
+  }
+}
+
+
+#body .wide-example-container h3 {
+  text-transform: none;
+}
+
+@media screen and (min-width: 960px) {
+
+  .wide-example-container {
+    width: 960px;
+    margin-left: -160px;  
+    overflow: hidden;
+  }
+
+  .wide-example-container .half {
+    float: left;
+    width: 47%;
+    margin-left: 3%;
+  }
+  .wide-example-container .half:first-child {
+    margin-left: 0;
+  }
+
+}
