@@ -1,7 +1,7 @@
 {
   "name": "skit",
   "description": "Skit JavaScript framework for building thick clients based on public web APIs.",
-  "version": "0.0.22",
+  "version": "0.0.23",
 
   "bin": "./bin/skit",
 
