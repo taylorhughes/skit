@@ -34,7 +34,7 @@
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
-      var controller = new ControllerKlass();
+      var controller = new ControllerKlass({{json request }});
       var controllerProperties = {{json controllerProperties }};
       for (var k in controllerProperties) {
         controller[k] = controllerProperties[k];
