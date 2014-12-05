@@ -11,8 +11,6 @@ var template = __module__.html;
 return Controller.create(BaseController, {
   // Load some shit to render from a remove server.
   __preload__: function(onLoaded) {
-    var movie = null;
-
     // We can get arguments out of the URL like so.
     var id = this.request.params['__id__'];
     id = parseInt(id.split('-').slice(-1)[0], 10);
@@ -20,19 +18,16 @@ return Controller.create(BaseController, {
     net.send('movies/' + id + '.json', {
       proxy: netproxy.getProxyNamed('rottentomatoes'),
       success: function(response) {
-        movie = response.body;
+        this.movie = response.body;
       },
       complete: function() {
-        if (!movie) {
+        if (!this.movie) {
           navigation.notFound();
         }
-        onLoaded(movie);
-      }
+        onLoaded();
+      },
+      context: this
     });
-  },
-
-  __load__: function(movie) {
-    this.movie = movie;
   },
 
   __title__: function() {

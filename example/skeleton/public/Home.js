@@ -17,24 +17,23 @@ return Controller.create(BaseController, {
     // This is where you load any data necessary for the initial page render.
     // net.send() works from the client and server, exactly the same way.
 
-    var items = [];
     net.send('https://cluster-static.s3.amazonaws.com/skit/example.json', {
       success: function(response) {
-        items = response.body['items'];
+        this.items = response.body['items'];
       },
       error: function() {
-        items = [{title: 'Oops!', description: 'Could not load the example data.'}];
+        this.items = [{title: 'Oops!', description: 'Could not load the example data.'}];
       },
       complete: function() {
-        onLoaded(items);
-      }
+        onLoaded();
+      },
+      context: this
     })
   },
 
-  __load__: function(items) {
+  __load__: function() {
     // This is called on the server and client in order to setup the Controller
-    // object with the preloaded data.
-    this.items = items;
+    // object after the preload has completed.
   },
 
   __title__: function() {

@@ -34,6 +34,11 @@
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
+      var controller = new ControllerKlass();
+      var controllerProperties = {{json controllerProperties }};
+      for (var k in controllerProperties) {
+        controller[k] = controllerProperties[k];
+      }
 
       var controllersToLoadInOrder = [];
       var CurrentControllerKlass = ControllerKlass;
@@ -41,15 +46,13 @@
         controllersToLoadInOrder.unshift(CurrentControllerKlass);
         CurrentControllerKlass = CurrentControllerKlass.__parent__;
       }
-
-      var controller = new ControllerKlass({{json requestWrap }});
-      var allControllerArgs = {{json allControllerArgs }};
       for (var i = 0, currentKlass = null; i < controllersToLoadInOrder.length; i++) {
         currentKlass = controllersToLoadInOrder[i];
         if (currentKlass.prototype.hasOwnProperty('__load__')) {
-          currentKlass.prototype.__load__.apply(controller, allControllerArgs[i]);
+          currentKlass.prototype.__load__.apply(controller);
         }
       }
+
       controller.recursiveReady();
     })();
   </script>

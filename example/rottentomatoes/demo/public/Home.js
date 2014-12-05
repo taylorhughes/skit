@@ -31,20 +31,17 @@ return Controller.create(BaseController, {
       this.currentList = LISTS[0].key;
     }
 
-    var movies = [];
+    this.movies = [];
     net.send('lists/' + this.currentList, {
       proxy: netproxy.getProxyNamed('rottentomatoes'),
       success: function(response) {
-        movies = response.body['movies'];
+        this.movies = response.body['movies'];
       },
       complete: function() {
-        onLoaded(movies);
-      }
+        onLoaded();
+      },
+      context: this
     })
-  },
-
-  __load__: function(movies) {
-    this.movies = movies;
   },
 
   // This dictates the page title on the server, but would also be used

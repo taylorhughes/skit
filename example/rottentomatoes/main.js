@@ -1,7 +1,9 @@
 
 
+var path = require('path');
+
 try {
-  var skit = require('../../skit');
+  var skit = require('../../../skit');
 } catch (e) {
   var skit = require('skit');
 }
@@ -10,7 +12,7 @@ try {
 // this thing is going to build and serve modules from.
 // "debug" forces the server to reload our modules with
 // every request, which makes development easier.
-var server = new skit.SkitServer('demo', {debug: true});
+var server = new skit.SkitServer(path.join(__dirname, 'demo'), {debug: true});
 
 server.registerProxy('rottentomatoes',
   function(proxyRequest, apiRequest) {
