@@ -92,13 +92,23 @@ li li li {
   }
 }
 
+#header h2,
 #header p {
+  font-weight: 100;
   font-size: 150%;
+}
+#header h2 {
+  margin-bottom: 20px;
 }
 
 #header a {
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
+
+  background-image: linear-gradient(to bottom, #fff 50%, rgba(255,255,255,0) 50%);
+  background-repeat: repeat-x;
+  background-size: 2px 2px;
+  background-position: 0 26px;
 }
 
 
