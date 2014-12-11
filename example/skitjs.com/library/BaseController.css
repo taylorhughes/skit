@@ -103,12 +103,7 @@ li li li {
 
 #header a {
   color: #fff;
-  text-decoration: none;
-
-  background-image: linear-gradient(to bottom, #fff 50%, rgba(255,255,255,0) 50%);
-  background-repeat: repeat-x;
-  background-size: 2px 2px;
-  background-position: 0 26px;
+  text-decoration: underline;
 }
 
 
