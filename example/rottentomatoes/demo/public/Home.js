@@ -5,7 +5,8 @@ var events = skit.browser.events;
 var Controller = skit.platform.Controller;
 var net = skit.platform.net;
 var netproxy = skit.platform.netproxy;
-var util = skit.platform.util;
+var iter = skit.platform.iter;
+var object = skit.platform.object;
 
 // This is another module in our library.
 var BaseController = library.BaseController;
@@ -52,8 +53,8 @@ return Controller.create(BaseController, {
 
   __body__: function() {
     var listName;
-    var lists = util.map(LISTS, function(list) {
-      list = util.copy(list);
+    var lists = iter.map(LISTS, function(list) {
+      list = object.copy(list);
       if (this.currentList == list.key) {
         listName = list.name;
         list.selected = true;
