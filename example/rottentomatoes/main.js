@@ -30,7 +30,7 @@ server.registerProxy('rottentomatoes',
 
 // Set up our detail page path. Any directory in our "public" tree
 // named __id__ will match this regular expression. And in those
-// controllers, this.request.params['__id__'] will be set to the
+// controllers, this.params['__id__'] will be set to the
 // matching path component.
 server.registerUrlArgument('__id__', /\w+(-\w+)*-\d+/);
 

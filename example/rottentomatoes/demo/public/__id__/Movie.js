@@ -12,7 +12,7 @@ return Controller.create(BaseController, {
   // Load some shit to render from a remove server.
   __preload__: function(onLoaded) {
     // We can get arguments out of the URL like so.
-    var id = this.request.params['__id__'];
+    var id = this.params['__id__'];
     id = parseInt(id.split('-').slice(-1)[0], 10);
 
     net.send('movies/' + id + '.json', {
