@@ -26,33 +26,20 @@
     (function() {
       {{#if clientProxyObjects}}
         var netproxy = window.skit.objects[{{json netproxyModulePath}}];
-        if (netproxy) {
-          {{#each clientProxyObjects}}
-            netproxy.__register__({{json name}}, {{json this}});
-          {{/each}}
-        }
+        {{#each clientProxyObjects}}
+          netproxy.__register__({{json name}}, {{json this}});
+        {{/each}}
       {{/if}}
 
       var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
-      var controller = new ControllerKlass({{json request }});
+      var controller = new ControllerKlass({{json params }});
+
       var controllerProperties = {{json controllerProperties }};
       for (var k in controllerProperties) {
         controller[k] = controllerProperties[k];
       }
 
-      var controllersToLoadInOrder = [];
-      var CurrentControllerKlass = ControllerKlass;
-      while (CurrentControllerKlass) {
-        controllersToLoadInOrder.unshift(CurrentControllerKlass);
-        CurrentControllerKlass = CurrentControllerKlass.__parent__;
-      }
-      for (var i = 0, currentKlass = null; i < controllersToLoadInOrder.length; i++) {
-        currentKlass = controllersToLoadInOrder[i];
-        if (currentKlass.prototype.hasOwnProperty('__load__')) {
-          currentKlass.prototype.__load__.apply(controller);
-        }
-      }
-
+      controller.recursiveLoad();
       controller.recursiveReady();
     })();
   </script>
