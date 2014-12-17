@@ -1,4 +1,6 @@
+
 var net = skit.platform.net;
+
 var GITHUB_BASE_URL = 'https://api.github.com/gists/';
 
 var logError = function(response) {
@@ -20,6 +22,7 @@ module.exports = {
       complete: done
     });
   },
+
   loadGist: function(gistId, apiCallback, context) {
     var gist = null;
     var done = function() {

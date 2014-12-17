@@ -1,9 +1,10 @@
 var Controller = skit.platform.Controller;
 var string = skit.platform.string;
 var navigation = skit.platform.navigation;
+var BaseController = library.BaseController;
 var GitHubAPIClient = library.GitHubAPIClient;
 var template = __module__.html;
-module.exports = Controller.create({
+module.exports = Controller.create(BaseController, {
   __preload__: function(loaded) {
     var query = navigation.query();
     GitHubAPIClient.loadGist(query['id'], function(gist) {
