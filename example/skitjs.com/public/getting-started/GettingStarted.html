@@ -2,32 +2,57 @@
   <div class="content">
     <h1>Getting started with skit</h1>
     <p>
-      Create an example project step by step.
-    </p>
-    <p>
       <a href="/">&larr; skit home</a>
     </p>
   </div>
 </div>
 
+
 <div id="body" class="content">
 
 <div class="section">
-  <h1>Install</h1>
+  <h1>Tutorial overview</h1>
+  <p>
+    What follows is a 10-minute tutorial on learning the basic structure of a
+    skit project. We will build an example site with two pages, sharing a
+    common API layer and base page style.
+  </p>
+
+  <p>
+    If you just want to check out the finished code, here it is:
+  </p>
+
+  <p>
+    <a href="https://github.com/clusterinc/skit/tree/master/example/helloworld" class="button">
+      Browse the finished tutorial code
+    </a>
+  </p>
+
+  <p>
+    &hellip; check out the other examples in <a href="https://github.com/clusterinc/skit/tree/master/example/">example</a> also,
+    including <a href="https://github.com/clusterinc/skit/tree/master/example/skitjs.com">the code for this site</a>.
+  </p>
+</div>
+
+
+<div class="section">
+  <h1>Step 1: Install</h1>
   <ol>
     <li><a href="http://nodejs.org/">Install Node v0.10.x</a></li>
     <li>Install skit from <a href="https://www.npmjs.org/package/skit">npm</a>:
-  <pre> $ sudo npm install skit --global</pre>
+  <pre><span class="no-select"> $ </span>sudo npm install skit --global</pre>
       <p>
         (Note that if you don't install with --global, in the next step
         you will need to run skit with <code>./node_modules/.bin/skit</code>
         rather than just <code>skit</code>.)
       </p>
     </li>
+  </ol>
 </div>
 
-<div class="section" id="part-i">
-  <h1>Part I: Minimum viable skit project</h1>
+
+<div class="section">
+  <h1>Step 2: Minimum viable skit project</h1>
   <ol>
     <li>
       First we will create a new directory with a &ldquo;public&rdquo; directory inside:
@@ -66,18 +91,18 @@
   </ol>
 </div>
 
-<div class="section" id="part-ii">
-  <h1>Part II: Templates</h1>
+<div class="section">
+  <h1>Step 3: Templates</h1>
   <p>
-    Expanding on the MVP from <a href="#part-i">Part I</a>, we can add more
-    files to organize the project a bit better.
+    Expanding on the MVP, we can add more files to organize the project a bit
+    better.
   </p>
   <ol>
     <li>
       Create <code>Home.html</code> in the same directory as <code>Home.js</code>.
       Files sharing the same prefix (anything before the first underscore)
       become part of the same skit module.
-      <pre><ins>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
+      <pre><ins>&lt;p&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
 &lt;p&gt;Here&rsquo;s a random number: &#123;&#123; random &#125;&#125;&lt;/p&gt;</ins></pre>
     </li>
     <li>
@@ -104,8 +129,8 @@ module.exports = Controller.create({
   </ol>
 </div>
 
-<div class="section" id="part-iii">
-  <h1>Part III: Getting started on the client side</h1>
+<div class="section">
+  <h1>Step 4: Getting started on the client side</h1>
   <p>
     Now that we have templates, we can easily add more markup and will quickly
     need to start dealing with it. <strong>You can use whatever library
@@ -120,9 +145,11 @@ module.exports = Controller.create({
   <ol>
     <li>
       Add a button with id="reload" to <code>Home.html</code>:
-      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
-&lt;p&gt;Here&rsquo;s a random number: &#123;&#123; random &#125;&#125;&lt;/p&gt;
-<ins>&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;</ins></pre>
+      <pre>&lt;p&gt;
+  Hello, world! I&rsquo;m a template.
+  <ins>&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;</ins>
+&lt;/p&gt;
+&lt;p&gt;Here&rsquo;s a random number: &#123;&#123; random &#125;&#125;&lt;/p&gt;</pre>
     </li>
     <li>
       Update <code>Home.js</code> to listen for clicks on <code>id=&quot;reload&quot;</code>:
@@ -153,8 +180,8 @@ module.exports = Controller.create({
   </ol>
 </div>
 
-<div class="section" id="part-iv">
-  <h1>Part IV: Loading HTTP API content</h1>
+<div class="section">
+  <h1>Step 5: Loading HTTP API content</h1>
   <p>
     OK, now for the cool part. Let&rsquo;s load some content over the network
     and include it in our server-side rendered response.
@@ -201,9 +228,11 @@ module.exports = Controller.create({
 }); </pre>
     </li>
     <li>
-      Update <strong>Home.html</strong> to output the image items:
-      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
-&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;
+      Update <strong>Home.html</strong> to output the gist items:
+      <pre>&lt;p&gt;
+  Hello, world! I&rsquo;m a template.
+  <ins>&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;</ins>
+&lt;/p&gt;
 <ins>&lt;ul&gt;
 &#123;&#123;#each gists &#125;&#125;
   &lt;li&gt;
@@ -229,16 +258,18 @@ module.exports = Controller.create({
 </div>
 
 
-<div class="section" id="part-v">
-  <h1>Part V: Template partials</h1>
+<div class="section">
+  <h1>Step 6: Template partials</h1>
   <p>
     OK, let&rsquo;s clean this up for a second.
   </p>
   <ol>
     <li>
       Update <strong>Home.html</strong> to reference a partial:
-      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
-&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;
+      <pre>&lt;p&gt;
+  Hello, world! I&rsquo;m a template.
+  <ins>&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;</ins>
+&lt;/p&gt;
 &lt;ul&gt;
 &#123;&#123;#each gists &#125;&#125;
   <ins>&#123;&#123;> __module__.item.html &#125;&#125;</ins>
@@ -269,8 +300,8 @@ module.exports = Controller.create({
 </div>
 
 
-<div class="section" id="part-vi">
-  <h1>Part VI: Library modules</h1>
+<div class="section">
+  <h1>Step 7: Library modules</h1>
   <p>
     So far we&rsquo;ve only used files in <code>public</code>, which is
     actually a special directory in skit &mdash; <code>public</code> is the
@@ -344,8 +375,8 @@ module.exports = {
   </ol>
 </div>
 
-<div class="section" id="part-vii">
-  <h1>Part VII: A detail page</h1>
+<div class="section">
+  <h1>Step 8: A detail page</h1>
   <p>
     In part VI I mentioned the <code>public</code> directory&rsquo;s structure
     dictated the URLs we handle, so let&rsquo;s add another directory inside
@@ -474,5 +505,88 @@ module.exports = Controller.create({
   </ol>
 </div>
 
+
+<div class="section">
+  <h1>Step 9: Base Controller</h1>
+  <p>
+    Even though <code>Home.js</code> and <code>Gist.js</code> both exist in the
+    same website, they don&rsquo;t share any behavior yet. For this, we can
+    introduce hierarchy to <code>Controller</code> classes.
+  </p>
+  <ol>
+    <li>
+      Add three new files,
+      <code>BaseController.js</code>, <code>BaseController.css</code>,
+      and <code>BaseController.html</code>, in <code>library</code>:
+      <pre><span class="no-select">$ </span>touch helloworld/library/BaseController.js
+<span class="no-select">$ </span>touch helloworld/library/BaseController.html
+<span class="no-select">$ </span>touch helloworld/library/BaseController.css</pre>
+    </li>
+    <li>
+      Fill in <strong>BaseController.html</strong>:
+      <pre><ins>&lt;div id="content"&gt;
+  &lt;!-- Triple curlies inserts HTML unescaped. --&gt;
+  &#123;&#123;&#123; childHtml &#125;&#125;&#125;
+&lt;/div&gt;</ins></pre>
+    </li>
+    <li>
+      Fill in <strong>BaseController.js</strong>:
+      <pre><ins>var Controller = skit.platform.Controller;
+var template = __module__.html;
+module.exports = Controller.create({
+  __title__: function(childTitle) {
+    <span class="no-select">// Parents get the title generated by children as an argument.</span>
+    return childTitle + ' | Hello World';
+  },
+  __body__: function(childHtml) {
+    <span class="no-select">// Parents get the HTML generated by children as an argument.</span>
+    return template({childHtml: childHtml});
+  },
+  __ready__: function() {
+    <span class="no-select">// Parents also get __preload__, __load__ and __ready__ calls.</span>
+  }
+});</ins></pre>
+    </li>
+    <li>
+      Fill in <strong>BaseController.css</strong>:
+      <pre><ins><span class="no-select">/* CSS files are automatically included along with modules. */</span>
+body {
+  font-family: arial, sans-serif;
+  font-size: 14px;
+}
+
+#content {
+  max-width: 640px;
+  margin: 20px auto;
+}</ins></pre>
+    </li>
+    <li>
+      Update <strong>Home.js</strong> and <strong>Gist.js</strong> to add
+      the parent controller:
+      <pre>...
+<ins>var BaseController = library.BaseController;</ins>
+<span class="no-select">// Controller.create's first argument becomes the parent class.</span>
+module.exports = Controller.create(<ins>BaseController,</ins> {</ins>
+...</pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> to see the new shared container
+      for the main page and detail page.
+    </li>
+  </ol>
+</div>
+
+<div class="section">
+  <h1>Fin.</h1>
+  <p>
+    For more, check out the full <a href="/reference">API Reference</a> and
+    have a look at the <a href="https://github.com/clusterinc/skit/">project on GitHub</a>.
+  </p>
+  <p>
+    <a href="https://github.com/clusterinc/skit/tree/master/example/helloworld" class="button">
+      Browse the finished tutorial code
+    </a>
+  </p>
+</div>
 
 </div>

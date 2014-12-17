@@ -1,0 +1,73 @@
+/* BUTTONS */
+
+.button,
+button,
+input[type="submit"] {
+    display: inline-block;
+    color: white;
+    -webkit-border-radius: 3px;
+       -moz-border-radius: 3px;
+            border-radius: 3px;
+    border: none;
+    background: #3da5f0;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 300;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+}
+.button:hover,
+button:hover,
+input[type="submit"]:hover {
+    background: #1470b2;
+    text-decoration: none;
+}
+.button:active,
+button:active,
+input[type="submit"]:active,
+.button:focus,
+button:focus,
+input[type="submit"]:focus {
+    background: #1470b2;
+}
+button::-moz-focus-inner {
+  border: 0;
+}
+
+.button:disabled,
+button:disabled,
+input[type="submit"]:disabled,
+.button:disabled:hover,
+button:disabled:hover,
+input[type="submit"]:disabled:hover {
+    background: #999;
+    cursor: default;
+}
+
+button.wide,
+.button.wide {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.button.secondary,
+button.secondary,
+input[type="submit"].secondary {
+    background: #ccc;
+    color: #333;
+}
+.button.secondary:hover,
+button.secondary:hover,
+input[type="submit"].secondary:hover {
+    background: #ddd;
+}
+.button.secondary:active,
+button.secondary:active,
+input[type="submit"].secondary:active,
+.button.secondary:focus,
+button.secondary:focus,
+input[type="submit"].secondary:focus {
+    background: #bbb;
+}
