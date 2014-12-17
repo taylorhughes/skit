@@ -44,6 +44,19 @@ pre {
   overflow-x: auto;
 }
 
+pre .no-select {
+  color: #999;
+  -moz-user-select: none; 
+  -khtml-user-select: none; 
+  -webkit-user-select: none; 
+  -o-user-select: none; 
+  user-select: none; 
+}
+pre ins {
+  text-decoration: none;
+  color: #096;
+}
+
 li li {
   margin-left: 25px;
 }

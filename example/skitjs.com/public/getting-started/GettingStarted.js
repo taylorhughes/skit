@@ -9,7 +9,7 @@ var html = __module__.html;
 
 return Controller.create(BaseController, {
   __title__: function() {
-    return 'JavaScript web application environment for first-class web clients';
+    return 'Getting Started';
   },
 
   __body__: function() {

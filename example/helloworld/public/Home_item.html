@@ -1,0 +1,10 @@
+<li>
+  <a href="/gist?id={{ id }}">
+    {{#each files }}
+      {{ filename }}
+    {{/each}}
+  </a>
+  {{#if owner.login }}
+    by <a href="{{ owner.html_url }}">{{ owner.login }}</a>
+  {{/if}}
+</li>

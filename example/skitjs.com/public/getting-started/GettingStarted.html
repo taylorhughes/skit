@@ -1,0 +1,480 @@
+<div id="header">
+  <div class="content">
+    <h1>Getting started with skit</h1>
+    <p>
+      Create an example project step by step.
+    </p>
+    <p>
+      <a href="/">&larr; skit home</a>
+    </p>
+  </div>
+</div>
+
+<div id="body" class="content">
+
+<div class="section">
+  <h1>Install</h1>
+  <ol>
+    <li><a href="http://nodejs.org/">Install Node v0.10.x</a></li>
+    <li>Install skit from <a href="https://www.npmjs.org/package/skit">npm</a>:
+  <pre> $ sudo npm install skit --global</pre>
+      <p>
+        (Note that if you don't install with --global, in the next step
+        you will need to run skit with <code>./node_modules/.bin/skit</code>
+        rather than just <code>skit</code>.)
+      </p>
+    </li>
+</div>
+
+<div class="section" id="part-i">
+  <h1>Part I: Minimum viable skit project</h1>
+  <ol>
+    <li>
+      First we will create a new directory with a &ldquo;public&rdquo; directory inside:
+      <pre><span class="no-select">$ </span>mkdir helloworld
+<span class="no-select">$ </span>mkdir helloworld/public
+<span class="no-select">$ </span>touch helloworld/public/Home.js </pre>
+    </li>
+    <li>
+      Now open <code>helloworld/public/Home.js</code> in your favorite editor, and paste
+      the following:
+      <pre><span class="no-select">// Load the Controller module from the skit library.</span>
+<ins>var Controller = skit.platform.Controller;</ins>
+<span class="no-select">// Create a new Controller subclass and set it as this module's exports.</span>
+<ins>module.exports = Controller.create({
+  __body__: function() {
+    return '&lt;p&gt;Hello world!&lt;/p&gt;';
+  }
+});</ins></pre>
+    </li>
+    <li>
+      Run the skit server:
+        <pre><span class="no-select">$ </span>skit run helloworld --debug
+<span class="no-select">Skit server listening on 0.0.0.0:3001</span></pre>
+    </li>
+    <li>
+      Now you can visit <code>http://localhost:3001</code> in a browser to see
+      &ldquo;Hello world!&rdquo;
+    </li>
+    <li>
+      Inspect the source to see that <code>&lt;p&gt;Hello world!&lt;/p&gt;</code>
+      is not the entire body of the response, rather it is inserted into the
+      <code>&lt;body&gt;</code> followed by code to load the appropriate
+      JavaScript resources from the skit server as well, including the
+      <code>Home.js</code> file you just wrote.
+    </li>
+  </ol>
+</div>
+
+<div class="section" id="part-ii">
+  <h1>Part II: Templates</h1>
+  <p>
+    Expanding on the MVP from <a href="#part-i">Part I</a>, we can add more
+    files to organize the project a bit better.
+  </p>
+  <ol>
+    <li>
+      Create <code>Home.html</code> in the same directory as <code>Home.js</code>.
+      Files sharing the same prefix (anything before the first underscore)
+      become part of the same skit module.
+      <pre><ins>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
+&lt;p&gt;Here&rsquo;s a random number: &#123;&#123; random &#125;&#125;&lt;/p&gt;</ins></pre>
+    </li>
+    <li>
+      Update <code>Home.js</code> to match the following:
+      <pre>var Controller = skit.platform.Controller;
+<span class="no-select">// Loads the "Home.html" file, a Mustache template.</span>
+<ins>var template = __module__.html;</ins>
+module.exports = Controller.create({
+  <ins>__title__: function() {
+    return 'Home';
+  },</ins>
+  __body__: function() {
+    <span class="no-select">// Mustache templates are functions that return HTML.</span>
+    return <ins>template({random: Math.random()});</ins>
+  }
+}); </pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> to see the changes: Now there
+      should be a <code>&lt;title&gt;</code> on the page, and you should see
+      a random number output on the page that&rsquo;s different with every
+      page load.
+    </li>
+  </ol>
+</div>
+
+<div class="section" id="part-iii">
+  <h1>Part III: Getting started on the client side</h1>
+  <p>
+    Now that we have templates, we can easily add more markup and will quickly
+    need to start dealing with it. <strong>You can use whatever library
+    you want</strong> for client-side stuff &mdash; you might&rsquo;ve heard of
+    <a href="http://jquery.org/">one</a> or
+    <a href="http://microjs.com/">two</a> options</a>.
+  </p>
+  <p>
+    That being said, skit includes a simple DOM and events library, because
+    the public demanded <em>more</em>.
+  </p>
+  <ol>
+    <li>
+      Add a button with id="reload" to <code>Home.html</code>:
+      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
+&lt;p&gt;Here&rsquo;s a random number: &#123;&#123; random &#125;&#125;&lt;/p&gt;
+<ins>&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;</ins></pre>
+    </li>
+    <li>
+      Update <code>Home.js</code> to listen for clicks on <code>id=&quot;reload&quot;</code>:
+      <pre><span class="no-select">// Load DOM and events from skit.browser.</span>
+<ins>var dom = skit.browser.dom;
+var events = skit.browser.events;</ins>
+<span class="no-select">// Includes we already needed.</span>
+var Controller = skit.platform.Controller;
+var template = __module__.html;
+module.exports = Controller.create({
+  __title__: function() {
+    return 'Home';
+  },
+  __body__: function() {
+    return template({random: Math.random()});
+  }<ins>,
+  __ready__: function() {
+    <span class="no-select">// dom.get() returns a matching element, or null if none is found.</span>
+    var reload = dom.get('#reload');
+    events.bind(reload, 'click', this.reload, this);
+  }</ins>
+}); </pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> to see the changes: Now we have
+      a button, and when you click it, a new number appears.
+    </li>
+  </ol>
+</div>
+
+<div class="section" id="part-iv">
+  <h1>Part IV: Loading HTTP API content</h1>
+  <p>
+    OK, now for the cool part. Let&rsquo;s load some content over the network
+    and include it in our server-side rendered response.
+  </p>
+  <p>
+    Flickr has an awesome endpoint for us to enjoy:
+    <a href="https://api.flickr.com/services/feeds/photos_public.gne?format=json&amp;nojsoncallback=1">https://api.flickr.com/services/feeds/photos_public.gne</a>
+  </p>
+  <p>To plug this in, we&rsquo;ll need a new module in skit.platform called <code>skit.platform.net</code>.</p>
+  <ol>
+    <li>
+      Update <code>Home.js</code> to include the net module and load some content:
+      <pre><span class="no-select">// Includes we already needed.</span>
+var dom = skit.browser.dom;
+var events = skit.browser.events;
+var Controller = skit.platform.Controller;
+<span class="no-select">// Add skit.platform.net for making HTTP requests.</span>
+<ins>var net = skit.platform.net;</ins>
+var template = __module__.html;
+<span class="no-select">// This GitHub API returns a list of public gists.</span>
+<ins>var GITHUB_URL = 'https://api.github.com/gists/public';</ins>
+module.exports = Controller.create({
+  <ins>__preload__: function(loaded) {
+    net.send(GITHUB_URL, {
+      success: function(response) {
+        this.gists = response.body;
+      },
+      error: function(response) {
+        console.log('Error loading:', response.code,
+            'body:', response.body);
+      },
+      complete: loaded,
+      context: this
+    });
+  },</ins>
+  __title__: function() {
+    return 'Home';
+  },
+  __body__: function() {
+    <ins>return template({gists: this.gists});</ins>
+  },
+  __ready__: function() {
+    var reload = dom.get('#reload');
+    events.bind(reload, 'click', this.reload, this);
+  }
+}); </pre>
+    </li>
+    <li>
+      Update <strong>Home.html</strong> to output the image items:
+      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
+&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;
+<ins>&lt;ul&gt;
+&#123;&#123;#each gists &#125;&#125;
+  &lt;li&gt;
+    &lt;a href=&quot;&#123;&#123; html_url &#125;&#125;&quot;>
+      &#123;&#123;#each files &#125;&#125;
+        &#123;&#123; filename &#125;&#125;
+      &#123;&#123;/each&#125;&#125;
+    &lt;/a&gt;
+    &#123;&#123;#if owner.login &#125;&#125;
+      by &lt;a href="&#123;&#123; owner.html_url &#125;&#125;"&gt;&#123;&#123; owner.login &#125;&#125;&lt;/a&gt;
+    &#123;&#123;/if&#125;&#125;
+  &lt;/li&gt;
+&#123;&#123;/each&#125;&#125;
+&lt;/ul&gt;</ins></pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> to see the changes.
+      Now we have a list of links, generated server-side, to gists returned by the GitHub API.
+      Pressing &ldquo;Reload&rdquo; will reload the data from the client side
+      and rerender the page with the new content, if there is any.
+    </li>
+  </ol>
+</div>
+
+
+<div class="section" id="part-v">
+  <h1>Part V: Template partials</h1>
+  <p>
+    OK, let&rsquo;s clean this up for a second.
+  </p>
+  <ol>
+    <li>
+      Update <strong>Home.html</strong> to reference a partial:
+      <pre>&lt;p id="hello"&gt;Hello, world! I&rsquo;m a template.&lt;/p&gt;
+&lt;button id=&quot;reload&quot;&gt;Reload&lt;/button&gt;
+&lt;ul&gt;
+&#123;&#123;#each gists &#125;&#125;
+  <ins>&#123;&#123;> __module__.item.html &#125;&#125;</ins>
+&#123;&#123;/each&#125;&#125;
+&lt;/ul&gt;</pre>
+    </li>
+    <li>
+      Create <strong>Home_item.html</strong> in the same directory as Home.html:
+      <pre><ins>&lt;li&gt;
+  &lt;a href=&quot;&#123;&#123; html_url &#125;&#125;&quot;>
+    &#123;&#123;#each files &#125;&#125;
+      &#123;&#123; filename &#125;&#125;
+    &#123;&#123;/each&#125;&#125;
+  &lt;/a&gt;
+  &#123;&#123;#if owner.login &#125;&#125;
+    by &lt;a href="&#123;&#123; owner.html_url &#125;&#125;"&gt;&#123;&#123; owner.login &#125;&#125;&lt;/a&gt;
+  &#123;&#123;/if&#125;&#125;
+&lt;/li&gt;</ins></pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> &mdash; it should look the same.
+      Automatic partials!
+      Note that you can also reference this template from the JavaScript file
+      as <code>__module__.item.html</code> in case you want to replace
+      an individual <code>&lt;li&gt;</code> or somesuch.
+    </li>
+  </ol>
+</div>
+
+
+<div class="section" id="part-vi">
+  <h1>Part VI: Library modules</h1>
+  <p>
+    So far we&rsquo;ve only used files in <code>public</code>, which is
+    actually a special directory in skit &mdash; <code>public</code> is the
+    base of our public URL structure. (More on that later.)
+  </p>
+  <p>
+    Let&rsquo;s move the API code into a new module, called GitHubAPIClient,
+    and then include it in Home.js.
+  </p>
+  <ol>
+    <li>
+      Update <strong>Home.js</strong> to reference a module:
+      <pre>var dom = skit.browser.dom;
+var events = skit.browser.events;
+var Controller = skit.platform.Controller;
+<span class="no-select">// Add GitHubAPIClient for loading GitHub content.</span>
+<ins>var GitHubAPIClient = library.GitHubAPIClient;</ins>
+var template = __module__.html;
+module.exports = Controller.create({
+  __preload__: function(loaded) {
+    <ins>GitHubAPIClient.loadGists(function(gists) {
+      this.gists = gists;
+      loaded();
+    }, this);</ins>
+  },
+  __title__: function() {
+    return 'Home';
+  },
+  __body__: function() {
+    return template({gists: this.gists});
+  },
+  __ready__: function() {
+    var reload = dom.get('#reload');
+    events.bind(reload, 'click', this.reload, this);
+  }
+});</pre>
+    </li>
+    <li>
+      Create a new directory: <code>library</code>, and add a new file,
+      <code>GitHubAPIClient.js</code>.
+      <pre><span class="no-select">$ </span>mkdir helloworld/library
+<span class="no-select">$ </span>touch helloworld/library/GitHubAPIClient.js</pre>
+    </li>
+    <li>
+      Edit <strong>GitHubAPIClient.js</strong> and add the new function
+      we&rsquo;re calling from Home.js:
+      <pre><ins>var net = skit.platform.net;
+var GITHUB_URL = 'https://api.github.com/gists/public';
+
+var logError = function(response) {
+  console.log('Error loading:', response.code,
+      'body:', response.body);
+};
+
+module.exports = {
+  loadGists: function(apiCallback, context) {
+    var gists = [];
+    var done = function() {
+      apiCallback.call(context, gists);
+    };
+    net.send(GITHUB_URL, {
+      success: function(response) {
+        gists = response.body;
+      },
+      error: logError,
+      complete: done
+    });
+  }
+};</ins></pre>
+    </li>
+  </ol>
+</div>
+
+<div class="section" id="part-vii">
+  <h1>Part VII: A detail page</h1>
+  <p>
+    In part VI I mentioned the <code>public</code> directory&rsquo;s structure
+    dictated the URLs we handle, so let&rsquo;s add another directory inside
+    to see what I mean.
+  </p>
+  <ol>
+    <li>
+      Create a new directory <code>gist</code>, and add two new files,
+      <code>Gist.js</code> and <code>Gist.html</code>:
+      <pre><span class="no-select">$ </span>mkdir helloworld/public/gist
+<span class="no-select">$ </span>touch helloworld/public/gist/Gist.js
+<span class="no-select">$ </span>touch helloworld/public/gist/Gist.html</pre>
+    </li>
+    <li>
+      Update <strong>Home_item.html</strong> to reference the new detail page:
+      <pre>&lt;li&gt;
+  &lt;a href="<ins>/gist?id=&#123;&#123; id &#125;&#125;</ins>"&gt;
+    &#123;&#123;#each files &#125;&#125;
+      &#123;&#123; filename &#125;&#125;
+    &#123;&#123;/each&#125;&#125;
+  &lt;/a&gt;
+  &#123;&#123;#if owner.login &#125;&#125;
+    by &lt;a href="&#123;&#123; owner.html_url &#125;&#125;"&gt;&#123;&#123; owner.login &#125;&#125;&lt;/a&gt;
+  &#123;&#123;/if&#125;&#125;
+&lt;/li&gt;</pre>
+    </li>
+    <li>
+      Update <strong>GitHubAPIClient.js</strong> to add a method for fetching
+      a single gist:
+      <pre>var dom = skit.browser.dom;
+var events = skit.browser.events;
+var Controller = skit.platform.Controller;
+var net = skit.platform.net;
+<ins>var GITHUB_BASE_URL = 'https://api.github.com/gists/';</ins>
+var logError = function(response) {
+  console.log('Error loading:', response.code,
+      'body:', response.body);
+};
+module.exports = {
+  loadGists: function(apiCallback, context) {
+    var gists = [];
+    var done = function() {
+      apiCallback.call(context, gists);
+    };
+    net.send(<ins>GITHUB_BASE_URL + 'public'</ins>, {
+      success: function(response) {
+        gists = response.body;
+      },
+      error: logError,
+      complete: done
+    });
+  }<ins>,
+  loadGist: function(gistId, apiCallback, context) {
+    var gist = null;
+    var done = function() {
+      apiCallback.call(context, gist);
+    };
+    net.send(GITHUB_BASE_URL + encodeURIComponent(gistId), {
+      success: function(response) {
+        gist = response.body;
+      },
+      error: logError,
+      complete: done
+    })
+  }</ins>
+};</pre>
+    </li>
+    <li>
+      Fill in <strong>Gist.html</strong>:
+      <pre><ins>&lt;a href="/"&gt;&larr; Home&lt;/a&gt;
+
+&lt;h1&gt;Gist by &#123;&#123; gistOwner &#125;&#125;&lt;/h1&gt;
+
+&lt;h2&gt;Gist description&lt;/h2&gt;
+&lt;p&gt;&#123;&#123; gist.description &#125;&#125;&lt;/p&gt;
+&lt;p&gt;&lt;a href="&#123;&#123; gist.html_url &#125;&#125;"&gt;View on GitHub&lt;/a&gt;&lt;/p&gt;
+
+&#123;&#123;#each gist.files &#125;&#125;
+  &lt;h3&gt;&#123;&#123;@key&#125;&#125;&lt;/h3&gt;
+  &lt;p&gt;&#123;&#123; size &#125;&#125; bytes, &#123;&#123; type &#125;&#125; (&#123;&#123; language &#125;&#125;)&lt;/p&gt;
+  &lt;pre&gt;&#123;&#123; content &#125;&#125;&lt;/pre&gt;
+&#123;&#123;/each&#125;&#125;</ins></pre>
+    </li>
+    <li>
+      Fill in <strong>Gist.js</strong>:
+      <pre><ins>var Controller = skit.platform.Controller;
+<span class="no-select">// skit.platform.string gives us string utilities.</span>
+var string = skit.platform.string;
+<span class="no-select">// skit.platform.navigation tells us about the current URL.</span>
+var navigation = skit.platform.navigation;
+var GitHubAPIClient = library.GitHubAPIClient;
+var template = __module__.html;
+module.exports = Controller.create({
+  __preload__: function(loaded) {
+    var query = navigation.query();
+    GitHubAPIClient.loadGist(query['id'], function(gist) {
+      if (!gist) {
+        <span class="no-select">// On the server side, this issues a 404.</span>
+        navigation.notFound();
+      } else {
+        this.gist = gist;
+      }
+
+      loaded();
+    }, this);
+  },
+  __title__: function() {
+    return 'Gist by ' + string.escapeHtml(this.gistOwner());
+  },
+  __body__: function() {
+    return template({gist: this.gist, gistOwner: this.gistOwner()});
+  },
+  gistOwner: function() {
+    if (this.gist['owner']) {
+      return this.gist['owner']['login'];
+    }
+    return 'anonymous';
+  }
+});</ins></pre>
+    </li>
+    <li>
+      Reload <code>http://localhost:3001</code> and click on one of the gist
+      URLs to see the new subpage in action. Note that an invalid ?id=
+      passed in the URL results in a server-side 404.
+    </li>
+  </ol>
+</div>
+
+
+</div>

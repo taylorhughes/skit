@@ -1,0 +1,13 @@
+<a href="/">&larr; Home</a>
+
+<h1>Gist by {{ gistOwner }}</h1>
+
+<h2>Gist description</h2>
+<p>{{ gist.description }}</p>
+<p><a href="{{ gist.html_url }}">View on GitHub</a></p>
+
+{{#each gist.files }}
+  <h3>{{@key}}</h3>
+  <p>{{ size }} bytes, {{ type }} ({{ language }})</p>
+  <pre>{{ content }}</pre>
+{{/each}}
