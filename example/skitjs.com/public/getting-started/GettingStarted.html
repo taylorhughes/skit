@@ -372,13 +372,18 @@ module.exports = {
   }
 };</ins></pre>
     </li>
+    <li>
+      Reload <code>http://localhost:3001</code> &mdash; it should look the same
+      for now, but we&rsquo;re about to add another page that will also
+      use the same shared library module.
+    </li>
   </ol>
 </div>
 
 <div class="section">
   <h1>Step 8: A detail page</h1>
   <p>
-    In part VI I mentioned the <code>public</code> directory&rsquo;s structure
+    In step 7 I mentioned the <code>public</code> directory&rsquo;s structure
     dictated the URLs we handle, so let&rsquo;s add another directory inside
     to see what I mean.
   </p>
@@ -561,17 +566,19 @@ body {
 }</ins></pre>
     </li>
     <li>
-      Update <strong>Home.js</strong> and <strong>Gist.js</strong> to add
-      the parent controller:
-      <pre>...
-<ins>var BaseController = library.BaseController;</ins>
-<span class="no-select">// Controller.create's first argument becomes the parent class.</span>
-module.exports = Controller.create(<ins>BaseController,</ins> {</ins>
-...</pre>
+      Add to the top of <strong>public/Home.js</strong> and <strong>public/gist/Gist.js</strong>:
+      <pre><ins>var BaseController = library.BaseController;</ins></pre>
+    </li>
+    <li>
+      Update <strong>public/Home.js</strong> and <strong>public/gist/Gist.js</strong>&rsquo;s
+      <code>Controller.create()</code> to look like this:
+      <pre><span class="no-select">// Controller.create's first argument becomes the parent class.</span>
+module.exports = Controller.create(<ins>BaseController,</ins> {</ins></pre>
     </li>
     <li>
       Reload <code>http://localhost:3001</code> to see the new shared container
-      for the main page and detail page.
+      for the main page and detail page &mdash; they should both have a max-width
+      and share a new sans-serif font.
     </li>
   </ol>
 </div>
