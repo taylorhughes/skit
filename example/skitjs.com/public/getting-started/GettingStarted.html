@@ -158,10 +158,8 @@ module.exports = Controller.create({
   <p>
     OK, now for the cool part. Let&rsquo;s load some content over the network
     and include it in our server-side rendered response.
-  </p>
-  <p>
-    Flickr has an awesome endpoint for us to enjoy:
-    <a href="https://api.flickr.com/services/feeds/photos_public.gne?format=json&amp;nojsoncallback=1">https://api.flickr.com/services/feeds/photos_public.gne</a>
+    GitHub has been gracious enough to allow us to access their JSON API
+    without authentication &mdash; yay!
   </p>
   <p>To plug this in, we&rsquo;ll need a new module in skit.platform called <code>skit.platform.net</code>.</p>
   <ol>
@@ -417,7 +415,7 @@ module.exports = {
     </li>
     <li>
       Fill in <strong>Gist.html</strong>:
-      <pre><ins>&lt;a href="/"&gt;&larr; Home&lt;/a&gt;
+      <pre><ins>&lt;a href="/"&gt;&amp;larr; Home&lt;/a&gt;
 
 &lt;h1&gt;Gist by &#123;&#123; gistOwner &#125;&#125;&lt;/h1&gt;
 
