@@ -1,17 +1,16 @@
 skit
 ====
-Unified JavaScript environment for first-class web clients. Make "single-page" webapps a thing of the past.
+A pure JavaScript frontend for building better web clients.
+<a href="http://skitjs.com/">http://skitjs.com/</a>
 
-### One JavaScript/HTML/CSS codebase
-Client code runs on the server first to render the initial page, then runs in the browser automatically.
-One set of routes, one set of templates, one framework.
+See also: <a href="http://skitjs.com/reference">API Reference</a> and <a href="http://skitjs.com/reference">Getting started tutorial</a>
 
-### Your web app is finally a normal API client
-No more special-cased webapp bootstrap code; use the same exact HTTP API as your native mobile apps right here on the web.
+### Upcoming features
+* Client-side navigation/rendering and history management for subsequent pageloads.
+* Performance improvements, including the ability to cache content from backends.
+* Better integration points for backend proxies.
+* Ability to optimize production releases into multiple bundles.
 
-### Render real web pages on the server
-Return fully-formed HTML from the server side using the same templates and partials you use in the browser.
-SEO is no additional work: The server renders the same markup  as the client.
-
-### Automatic static resource management
-Deploy versioned static resources to a third-party in production without having to think about it.
+### Version history
+#### v0.1.0
+* First public release.
