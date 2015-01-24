@@ -1,7 +1,7 @@
 {
   "name": "skit",
   "description": "A pure JavaScript frontend for building better web clients.",
-  "version": "0.0.35",
+  "version": "0.0.36",
 
   "bin": "./bin/skit",
 
