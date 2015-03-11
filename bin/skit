@@ -23,7 +23,7 @@ function usage(command) {
 
   switch (command) {
     case 'run':
-      console.log('usage: skit run <path_to_root> [--port=3001] [--debug]')
+      console.log('usage: skit run <path_to_root> [--port=3001] [--debug] [--public-root=public]')
       console.log()
       console.log('  Run the skit webserver for a given module root.')
       console.log()
@@ -35,12 +35,13 @@ function usage(command) {
       console.log('                 with every request, and output detailed')
       console.log('                 error messaging.')
       console.log('  port         - Port for the server to listen on.')
+      console.log('  public-root  - Name of the "public" directory for this app.')
       console.log()
       break;
 
     case 'optimize':
       console.log('usage: skit optimize <path_to_root> <path_to_optimized_root>')
-      console.log('                    [--static-host=<host>]')
+      console.log('                    [--static-host=<host>] [--public-root=public]')
       console.log()
       console.log('  Generate an optimized tree from the given skit root,')
       console.log('  writing the result tree to the given path. You can later')
@@ -75,7 +76,7 @@ function usage(command) {
 }
 
 
-function validate_root(root) {
+function validate_root(root, opt_publicRootName) {
   try {
     var dir = fs.statSync(root);
   } catch (e) {
@@ -87,7 +88,7 @@ function validate_root(root) {
   }
 
   try {
-    var publicPath = path.join(root, 'public');
+    var publicPath = path.join(root, opt_publicRootName || 'public');
     var publicDir = fs.statSync(publicPath);
   } catch (e) {
     return 'Could not read "public" directory inside <path_to_root> (' + publicPath + ')';
@@ -108,7 +109,7 @@ function command_run(args, positionalArgs) {
   }
   var root = positionalArgs[0];
 
-  var errorMessage = validate_root(root);
+  var errorMessage = validate_root(root, args['public-root']);
   if (errorMessage) {
     console.log(errorMessage);
     console.log();
@@ -117,6 +118,7 @@ function command_run(args, positionalArgs) {
 
   var options = {
     debug: args['debug'],
+    publicRoot: args['public-root'],
   };
 
   var aliasMap = args['alias-map'];
@@ -140,7 +142,7 @@ function command_optimize(args, positionalArgs) {
   var root = positionalArgs[0];
   var optimizedRoot = positionalArgs[1];
 
-  var errorMessage = validate_root(root);
+  var errorMessage = validate_root(root, args['public-root']);
   if (errorMessage) {
     console.log(errorMessage);
     console.log();
@@ -161,7 +163,9 @@ function command_optimize(args, positionalArgs) {
 
   var aliasMap = args['alias-map'] || '__alias_map__.json';
 
-  var server = new skit.SkitServer(root);
+  var server = new skit.SkitServer(root, {
+    publicRoot: args['public-root'],
+  });
   skit.optimizeServer(server, optimizedRoot, {aliasMap: aliasMap})
 
   console.log()
@@ -216,9 +220,9 @@ function command_skeleton(args, positionalArgs) {
 function main() {
   var args = minimist(process.argv.slice(2), {
     default: {
-      'port': 3001,
+      'port': 3001
     },
-    string: ['static-root', 'alias-map'],
+    string: ['static-root', 'alias-map', 'public-root'],
     boolean: ['debug'],
   });
 
