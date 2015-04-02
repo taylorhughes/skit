@@ -3,7 +3,8 @@
 <head>
   <title>{{ title }}</title>
   {{#each cssUrls}}
-    <link rel="stylesheet" href="{{ this }}">{{/each}}
+    <link rel="stylesheet" href="{{ url }}" data-bundle="{{ bundle }}">
+  {{/each}}
   {{{ meta }}}
   {{#if currentUrlAfterRedirect }}
     <script>
@@ -20,8 +21,10 @@
     window.skit = {
       objects: {}
     };
-  </script>{{#each scriptUrls}}
-  <script src="{{ this }}"></script>{{/each}}
+  </script>
+  {{#each jsUrls}}
+    <script src="{{url}}" data-bundle="{{bundle}}"></script>
+  {{/each}}
   <script>
     (function() {
       {{#if clientProxyObjects}}
