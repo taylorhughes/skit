@@ -18,9 +18,29 @@
 </head>
 <body><div id="skit-controller">{{{ body }}}</div>
   <script>
-    window.skit = {
-      objects: {}
-    };
+    window.skit = (function() {
+      var objects = {};
+      var modules = {};
+      function define(resourcePath, deps, fn) {
+        modules[resourcePath] = {deps: deps, fn: fn};
+      }
+      function load(resourcePath) {
+        if (!(resourcePath in objects)) {
+          if (resourcePath in modules) {
+            var module = modules[resourcePath];
+            var args = [];
+            for (var i = 0; i < module.deps.length; i++) {
+              args.push(load(module.deps[i]));
+            }
+            objects[resourcePath] = module.fn.apply(window, args);
+          } else {
+            objects[resourcePath] = null;
+          }
+        }
+        return objects[resourcePath];
+      }
+      return {define: define, load: load};
+    })();
   </script>
   {{#each jsUrls}}
     <script src="{{url}}" data-bundle="{{bundle}}"></script>
@@ -28,13 +48,13 @@
   <script>
     (function() {
       {{#if clientProxyObjects}}
-        var netproxy = window.skit.objects[{{json netproxyModulePath}}];
+        var netproxy = skit.load({{json netproxyModulePath}});
         {{#each clientProxyObjects}}
           netproxy.__register__({{json name}}, {{json this}});
         {{/each}}
       {{/if}}
 
-      var ControllerKlass = window.skit.objects[{{json controllerModulePath }}];
+      var ControllerKlass = skit.load({{json controllerModulePath }});
       var controller = new ControllerKlass({{json params }});
 
       var controllerProperties = {{json controllerProperties }};
