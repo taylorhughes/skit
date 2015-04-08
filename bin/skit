@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
+/**
+ * @license
+ * (c) 2015 Cluster Labs, Inc. https://cluster.co/
+ * License: MIT
+ */
+
 var fs = require('fs');
 var path = require('path');
 
