@@ -3,15 +3,22 @@ Skit API reference
 
 Welcome to the skit API reference. These modules are available inside skit apps as "skit.browser.dom", "skit.platform.iter", etc, like so:
 
+    var Controller = skit.platform.Controller;
     var net = skit.platform.net;
-    var Controller = skit.
 
-    module.exports = Controller.create()
-    net.send('https://your-site.com/api/foo', {
-      success: function(response) {
-        // check response.code, etc.
-      }
-    );
+    module.exports = Controller.create({
+        __preload__: function(done) {
+            net.send('https://your-site.com/api/foo', {
+              success: function(response) {
+                // check response.code, etc.
+              },
+              complete: done
+            });
+        },
+
+        ...
+
+    });
 
 These modules are meant to work in all browsers back to IE7-ish.
 
