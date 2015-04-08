@@ -9,7 +9,6 @@ See also: <a href="http://skitjs.com/docs">API Reference</a> and <a href="http:/
 * Client-side navigation/rendering and history management for subsequent pageloads.
 * Performance improvements, including the ability to cache content from backends.
 * Better integration points for backend proxies.
-* Ability to optimize production releases into multiple bundles.
 
 ### Version history
 #### v0.1.0
