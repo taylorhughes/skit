@@ -121,6 +121,11 @@ function command_run(args, positionalArgs) {
     publicRoot: args['public-root'],
   };
 
+  var notFoundProxy = args['not-found-proxy'];
+  if (notFoundProxy) {
+    options.notFoundProxy = notFoundProxy;
+  }
+
   var aliasMap = args['alias-map'];
   if (aliasMap) {
     options.aliasMap = aliasMap;
@@ -222,7 +227,7 @@ function main() {
     default: {
       'port': 3001
     },
-    string: ['static-root', 'alias-map', 'public-root'],
+    string: ['static-root', 'alias-map', 'public-root', 'not-found-proxy'],
     boolean: ['debug'],
   });
 
