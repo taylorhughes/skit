@@ -108,14 +108,14 @@
     <li>
       Update <code>Home.js</code> to match the following:
       <pre>var Controller = skit.platform.Controller;
-<span class="no-select">// Loads the "Home.html" file, a Mustache template.</span>
+<span class="no-select">// Loads the "Home.html" file, a Handlebars template.</span>
 <ins>var template = __module__.html;</ins>
 module.exports = Controller.create({
   <ins>__title__: function() {
     return 'Home';
   },</ins>
   __body__: function() {
-    <span class="no-select">// Mustache templates are functions that return HTML.</span>
+    <span class="no-select">// Handlebars templates are functions that return HTML.</span>
     return <ins>template({random: Math.random()});</ins>
   }
 }); </pre>
