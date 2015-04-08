@@ -3,7 +3,7 @@ skit
 A pure JavaScript frontend for building better web clients.
 <a href="http://skitjs.com/">http://skitjs.com/</a>
 
-See also: <a href="http://skitjs.com/reference">API Reference</a> and <a href="http://skitjs.com/getting-started">Getting started tutorial</a>
+See also: <a href="http://skitjs.com/docs">API Reference</a> and <a href="http://skitjs.com/getting-started">Getting started tutorial</a>
 
 ### Upcoming features
 * Client-side navigation/rendering and history management for subsequent pageloads.
