@@ -40,12 +40,10 @@
   <ol>
     <li><a href="http://nodejs.org/">Install Node v0.10.x</a></li>
     <li>Install skit from <a href="https://www.npmjs.org/package/skit">npm</a>:
-  <pre><span class="no-select"> $ </span>sudo npm install skit --global</pre>
+      <pre><span class="no-select"> $ </span>npm install skit</pre>
       <p>
-        (Note that if you don't install with --global, in the next step
-        you will need to run skit with <code>./node_modules/.bin/skit</code>
-        rather than just <code>skit</code>.)
-      </p>
+        (We will need <code>.bin/skit</code> from your <code>node_modules</code>
+        directory in the next step. If you have a <a href="http://stackoverflow.com/questions/19352976/npm-modules-wont-install-globally-without-sudo/21712034#21712034">separately configured npm prefix</a>, ignore the wonky <code>./node_modules/.bin</code> part below.)</p>
     </li>
   </ol>
 </div>
@@ -74,7 +72,7 @@
     </li>
     <li>
       Run the skit server:
-        <pre><span class="no-select">$ </span>skit run helloworld --debug
+        <pre><span class="no-select">$ </span>./node_modules/.bin/skit run helloworld --debug
 <span class="no-select">Skit server listening on 0.0.0.0:3001</span></pre>
     </li>
     <li>
