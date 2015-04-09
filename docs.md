@@ -57,7 +57,7 @@ Module conventions
 1. Files whose exports are a class are <code>CapitalizedLikeAClass</code>, eg. <code>Controller.js</code>
 2. Files whose exports are a module <code>arelikethis</code> -- no spaces
 3. Internal modules, eg. <code>SomeModule_someinternalthing.js</code> follow the same convention -- "someinternalthing" in this case is not a class, whereas <code>SomeModule_InternalThing.js</code> is a class
-4. <code>__things_like_this__</code> are generally _special_ skit API things.
+4. <code>\_\_things\_like\_this\_\_</code> are generally _special_ skit API things.
 5. Imports are grouped: first global, then project, then internal imports.
 6. Imports can only be at the top of the file -- imports below the first non-import are ignored.
 
