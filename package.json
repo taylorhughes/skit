@@ -9,7 +9,7 @@
     "acorn": "0.9.0",
     "async": "0.7.0",
     "handlebars": "2.0.x",
-    "request": "2.33.0",
+    "request": "2.55.0",
 
     "connect": "https://github.com/senchalabs/connect/tarball/master",
     "body-parser": "1.0.2",
