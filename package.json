@@ -1,7 +1,11 @@
 {
   "name": "skit",
   "description": "A pure JavaScript frontend for building better web clients.",
-  "version": "0.1.1",
+
+  "version": "0.1.2",
+  "engines": {
+    "node": ">=0.10.0"
+  },
 
   "bin": "./bin/skit",
 
@@ -26,5 +30,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/clusterinc/skit.git"
-  }
+  },
+  "bugs": {
+    "url": "http://github.com/clusterinc/skit/issues"
+  },
+
+  "homepage": "http://skitjs.com/",
+  "license": "MIT"
 }
