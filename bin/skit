@@ -194,7 +194,7 @@ function command_skeleton(args, positionalArgs) {
     usage_skeleton();
   }
 
-  var newRoot= path.normalize(path.resolve(positionalArgs[0]));
+  var newRoot = path.normalize(path.resolve(positionalArgs[0]));
 
   try {
     fs.statSync(newRoot);
