@@ -110,10 +110,7 @@ function validate_root(root, opt_publicRootName) {
 function command_run(args, positionalArgs) {
   var usage_run = usage.bind(this, 'run');
 
-  if (positionalArgs.length != 1) {
-    usage_run();
-  }
-  var root = positionalArgs[0];
+  var root = positionalArgs[0] || path.resolve(path.dirname());
 
   var errorMessage = validate_root(root, args['public-root']);
   if (errorMessage) {
@@ -136,7 +133,7 @@ function command_run(args, positionalArgs) {
   if (aliasMap) {
     options.aliasMap = aliasMap;
   }
-  
+
   var server = new skit.SkitServer(root, options);
   var port = args['port'];
   server.listen(port);
