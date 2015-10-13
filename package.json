@@ -2,7 +2,7 @@
   "name": "skit",
   "description": "A pure JavaScript frontend for building better web clients.",
 
-  "version": "0.1.8",
+  "version": "0.1.9",
   "engines": {
     "node": ">=0.10.0"
   },
