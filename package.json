@@ -21,7 +21,7 @@
     "http-proxy": "1.11",
     "cookies": "0.4.1",
     "compression": "1.0.2",
-    "uglify-js": "2.4.15",
+    "uglify-js": "2.6.1",
     "minimist": "1.1.0"
   },
 
