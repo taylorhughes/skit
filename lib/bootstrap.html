@@ -39,7 +39,12 @@
         }
         return objects[resourcePath];
       }
-      return {define: define, load: load};
+      return {
+        define: define,
+        modules: modules,
+        publicRoot: {{json publicRoot }},
+        load: load
+      };
     })();
   </script>
   {{#each jsUrls}}
@@ -62,6 +67,7 @@
         controller[k] = controllerProperties[k];
       }
 
+      window.skit.controller = controller;
       controller.recursiveLoad();
       controller.recursiveReady();
     })();
