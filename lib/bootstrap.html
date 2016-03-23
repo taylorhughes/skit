@@ -3,7 +3,7 @@
 <head>
   <title>{{ title }}</title>
   {{#each cssUrls}}
-    <link rel="stylesheet" href="{{ url }}" data-bundle="{{ bundle }}"{{#if integrity}} integrity="{{integrity}}"{{/if}}>
+    <link rel="stylesheet" href="{{ url }}" data-bundle="{{ bundle }}"{{#if integrity}} integrity="{{integrity}}" crossorigin="anonymous"{{/if}}>
   {{/each}}
   {{{ meta }}}
   {{#if currentUrlAfterRedirect }}
@@ -48,7 +48,7 @@
     })();
   </script>
   {{#each jsUrls}}
-    <script src="{{url}}" data-bundle="{{bundle}}"{{#if integrity}} integrity="{{integrity}}"{{/if}}></script>
+    <script src="{{url}}" data-bundle="{{bundle}}"{{#if integrity}} integrity="{{integrity}}" crossorigin="anonymous"{{/if}}></script>
   {{/each}}
   <script>
     (function() {
