@@ -2,7 +2,7 @@
   "name": "skit",
   "description": "A pure JavaScript frontend for building better web clients.",
 
-  "version": "0.2.3",
+  "version": "0.3",
   "engines": {
     "node": ">=0.10.0"
   },
@@ -10,19 +10,18 @@
   "bin": "./bin/skit",
 
   "dependencies": {
-    "acorn": "0.9.0",
-    "async": "0.7.0",
+    "acorn": "3.0.x",
     "handlebars": "4.0.x",
-    "request": "2.55.0",
+    "request": "2.69.0",
 
-    "connect": "https://github.com/senchalabs/connect/tarball/master",
-    "body-parser": "1.0.2",
-    "send": "0.3.0",
-    "http-proxy": "1.11",
-    "cookies": "0.4.1",
-    "compression": "1.0.2",
+    "connect": "3.4.x",
+    "body-parser": "1.15.x",
+    "send": "0.13.x",
+    "http-proxy": "1.13.x",
+    "cookies": "0.6.1",
+    "compression": "1.6.x",
     "uglify-js": "2.6.1",
-    "minimist": "1.1.0"
+    "minimist": "1.2.x"
   },
 
   "main": "lib/skit",
