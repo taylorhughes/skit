@@ -62,7 +62,7 @@
       var ControllerKlass = skit.load({{json controllerModulePath }});
       var controller = new ControllerKlass({{json params }});
 
-      var controllerProperties = {{json controllerProperties }};
+      var controllerProperties = {{json controllerProperties env.debug }};
       for (var k in controllerProperties) {
         controller[k] = controllerProperties[k];
       }
