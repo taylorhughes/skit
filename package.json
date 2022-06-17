@@ -1,31 +1,25 @@
 {
   "name": "skit",
   "description": "A pure JavaScript frontend for building better web clients.",
-
   "version": "0.3.7",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=12.0"
   },
-
   "bin": "./bin/skit",
-
   "dependencies": {
     "acorn": "3.0.x",
-    "handlebars": "4.0.x",
-    "request": "2.69.0",
-
-    "connect": "3.4.x",
-    "body-parser": "1.15.x",
-    "send": "0.13.x",
-    "http-proxy": "1.13.x",
+    "body-parser": "1.20.x",
+    "compression": "1.7.x",
+    "connect": "3.7.x",
     "cookies": "0.6.1",
-    "compression": "1.6.x",
-    "uglify-js": "2.6.1",
-    "minimist": "1.2.x"
+    "handlebars": "4.7.x",
+    "http-proxy": "1.18.x",
+    "minimist": "1.2.x",
+    "request": "2.88.x",
+    "send": "0.18.x",
+    "uglify-js": "2.6.1"
   },
-
   "main": "lib/skit",
-
   "repository": {
     "type": "git",
     "url": "https://github.com/clusterinc/skit.git"
@@ -33,7 +27,6 @@
   "bugs": {
     "url": "http://github.com/clusterinc/skit/issues"
   },
-
   "homepage": "http://skitjs.com/",
   "license": "MIT"
 }
